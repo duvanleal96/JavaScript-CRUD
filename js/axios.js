@@ -1,4 +1,6 @@
 
+
+
 const d = document,
     $table = d.querySelector(".crud-table"),
     $form = d.querySelector(".crud-form"),
@@ -29,3 +31,86 @@ const d = document,
         }
     }
     d.addEventListener("DOMContentLoaded", getAll)
+    /**
+     * Crear y editar santo
+     */
+     d.addEventListener("submit", async e => {
+        if (e.target === $form) {
+            e.preventDefault();
+    
+            if (!e.target.id.value) {
+                //Create-POST
+                try {
+                    let options = {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json;charset = utf-8"
+                        },
+                        data: JSON.stringify({
+                            nombre: e.target.nombre.value,
+                            constelacion: e.target.constelacion.value
+                        })
+                    }
+                    let res = await axios("http://localhost:5555/santos", options),
+                    json = await res.data
+                    location.reload();
+                } catch (err) {
+                    let message = err.statusText || "Ocurrio un error";
+                    $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`);
+                }
+            } else {
+                //UpdatePUT
+                try {
+                    let options = {
+                        method: "PUT",
+                        headers: {
+                            "Content-type": "application/json;charset = utf-8"
+                        },
+                        data: JSON.stringify({
+                            nombre: e.target.nombre.value,
+                            constelacion: e.target.constelacion.value
+                        })
+                    },
+                        res = await axios(`http://localhost:5555/santos/${e.target.id.value}`, options),
+                        json = await res.data
+            
+                    location.reload();
+                } catch (err) {
+                    let message = err.statusText || "Ocurrio un error";
+                    $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`);
+                }
+            }
+        }
+    })
+    /**
+ * Funcion editar y eliminar santos
+ */
+d.addEventListener("click", async e => {
+    //editar
+    if (e.target.matches(".edit")) {
+        $title.textContent = "Editar Santo";
+        $form.nombre.value = e.target.dataset.name;
+        $form.constelacion.value = e.target.dataset.constellation;
+        $form.id.value = e.target.dataset.id;
+    }
+    if (e.target.matches(".delete")) {
+        let isDelete = confirm(`¿estas seguro de eliminar el id ${e.target.dataset.id}?`);
+        if (isDelete) {
+            //delete-Delete
+            try {
+                let options = {
+                    method: "DELETE",
+                    headers: {
+                        "Content-type": "application/json;charset = utf-8"
+                    },
+                },
+                    res = await axios(`http://localhost:5555/santos/${e.target.dataset.id}`, options),
+                    json = await res.data
+                location.reload();
+            } catch (err) {
+                let message = xhr.statusText || "Ocurrio un error";
+                alert(`Error ${err.status}:${message}`);
+            }
+        }
+    }
+})
