@@ -30,7 +30,7 @@ const ajax = (options) => {
     xhr.send(JSON.stringify(data));
 }
 /**
- * Funcion obtener todos los datos de la Api Falsa
+ * Funcion obtener todos los datos de la Api Falsa y mostrarlos a la vista
  */
 const getAll =()=>{
     ajax({
@@ -42,8 +42,8 @@ const getAll =()=>{
                 $template.querySelector(".name").textContent=el.nombre;
                 $template.querySelector(".constellation").textContent=el.constelacion;
                 $template.querySelector(".edit").dataset.id =el.id;
-                $template.querySelector(".edit").dataset.id =el.id;
-                $template.querySelector(".edit").dataset.id =el.id;
+                $template.querySelector(".edit").dataset.name =el.nombre;
+                $template.querySelector(".edit").dataset.constellation =el.constelacion;
                 $template.querySelector(".delete").dataset.id =el.id;
                 
                 let $clone = d.importNode($template,true);
@@ -59,3 +59,61 @@ const getAll =()=>{
     })
 }
 d.addEventListener("DOMContentLoaded",getAll)
+/**
+ * Implementacion de la funcion agregar un santo y editarlo
+ */
+d.addEventListener("submit", e => {
+    if(e.target === $form){
+        e.preventDefault();
+        /**
+         * si el id viene vacio realice los metodos post ,caso contrario put
+         */
+        if (!e.target.id.value) {
+            //create - post
+            ajax({
+                url:"http://localhost:5555/santos",
+                method:"POST",
+                success:(res) => location.reload(),
+                erro:()=> $form.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`),
+                data:{
+                    nombre:e.target.nombre.value,
+                    constelacion:e.target.constelacion.value
+                }
+            });
+        }else{
+            //update -PUT
+            ajax({
+                url:`http://localhost:5555/santos/${e.target.id.value}`,
+                method:"PUT",
+                success:(res) => location.reload(),
+                erro:()=> $form.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`),
+                data:{
+                    nombre:e.target.nombre.value,
+                    constelacion:e.target.constelacion.value
+                }
+            });
+        }
+    }
+})
+
+d.addEventListener('click', e =>{
+    if(e.target.matches(".edit")){
+        $title.textContent="Editar Santo";
+        $form.nombre.value = e.target.dataset.name;
+        $form.constelacion.value = e.target.dataset.constellation;
+        $form.id.value = e.target.dataset.id;
+    }
+    if(e.target.matches(".delete")){
+        let isDelete= confirm(`¿estas seguro de eliminar el id ${e.target.dataset.id}?`);
+    if(isDelete){
+        //delete-Delete
+        ajax({
+            url:`http://localhost:5555/santos/${e.target.dataset.id}`,
+            method:"DELETE",
+            success:(res) => location.reload(),
+            erro:()=> alert(err),
+        });
+    }
+    }
+})
+
