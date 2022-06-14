@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/ajax.js"></script>
+   
     <title>Document</title>
 </head>
 
@@ -20,7 +20,7 @@
                 <input type="text" name="constelacion" placeholder="constelacion" required>
                 <br>
                 <input type="submit" value="enviar">
-                <input type="hidden" name="action">
+                <input type="hidden" name="id">
             </form>
         </article>
         <article>
@@ -29,26 +29,28 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>constelacion</th>
+                        <th>Constelacion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
+          
         </article>
     </section>
     <template id="crud-template">
         <tr>
-            <td>seiya</td>
-            <td>pegaso</td>
+            <td class="name"></td>
+            <td class="constellation"></td>
             <td>
-                <button>editar</button>
-                <button>eliminar</button>
+                <button class="edit">editar</button>
+                <button class="delete">eliminar</button>
             </td>
         </tr>
     </template>
+    <script src="./js/ajax.js"></script>
 </body>
 
 </html>
