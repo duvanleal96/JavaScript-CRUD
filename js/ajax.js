@@ -95,7 +95,9 @@ d.addEventListener("submit", e => {
         }
     }
 })
-
+/**
+ * funciones eliminar y editar
+ */
 d.addEventListener('click', e =>{
     if(e.target.matches(".edit")){
         $title.textContent="Editar Santo";
