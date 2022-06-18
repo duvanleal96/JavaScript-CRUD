@@ -106,7 +106,7 @@ d.addEventListener('click', e =>{
         $form.id.value = e.target.dataset.id;
     }
     if(e.target.matches(".delete")){
-        let isDelete= confirm(`¿estas seguro de eliminar el id ${e.target.dataset.id}?`);
+        let isDelete= confirm(`¿estas seguro de eliminar el santo ${$template.querySelector(".name").textContent}?`);
     if(isDelete){
         //delete-Delete
         ajax({

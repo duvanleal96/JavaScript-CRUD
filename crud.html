@@ -5,52 +5,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/vapor/bootstrap.min.css">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>CRUD API REST </h1>
-    <section class="crud">
-        <article>
-            <h2 class="crud-title">Agregar Santo</h2>
-            <form class="crud-form">
-                <input type="text" name="nombre" placeholder="nombre" required>
-                <br>
-                <input type="text" name="constelacion" placeholder="constelacion" required>
-                <br>
-                <input type="submit" value="enviar">
-                <input type="hidden" name="id">
-            </form>
-        </article>
-        <article>
-            <h2>Ver Santos</h2>
-            <table class="crud-table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Constelacion</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="container-fluid">
+        <h1>CRUD API REST </h1>
+        <section class="crud">
+            <article>
+                <h2 class="crud-title">Agregar Santo</h2>
+                <form class="crud-form">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="constelacion" placeholder="Constelacion" required>
+                        </div>
+                        <div class="col">
+                            <input class="btn btn-dark" type="submit" value="enviar">
+                        </div>
+                    </div>
+                    <input type="hidden" name="id">
+                </form>
+            </article>
+            <article>
+                <h2>Ver Santos</h2>
+                <table class="crud-table table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Constelacion</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </table>
-          
-        </article>
-    </section>
-    <template id="crud-template">
-        <tr>
-            <td class="name"></td>
-            <td class="constellation"></td>
-            <td>
-                <button class="edit">editar</button>
-                <button class="delete">eliminar</button>
-            </td>
-        </tr>
-    </template>
+                    </tbody>
+                </table>
+            </article>
+            <template id="crud-template">
+                <tr>
+                    <td class="name"></td>
+                    <td class="constellation"></td>
+                    <td>
+                        <button type="button" class="edit btn btn-dark">editar</button>
+                        <button type="button" class="delete btn btn-dark">eliminar</button>
+                    </td>
+                </tr>
+            </template>
+        </section>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./js/axios.js"></script>
+    <script src="./js/ajax.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,7 @@ const d = document,
 /**
  * Funcion mostrar datos de la Api
  */
-const getAll = async () => {
+ const getAll = async () => {
     try {
         let res = await fetch("http://localhost:5555/santos"),
             json = await res.json();
@@ -98,7 +98,8 @@ d.addEventListener("click", async e => {
         $form.id.value = e.target.dataset.id;
     }
     if (e.target.matches(".delete")) {
-        let isDelete = confirm(`¿estas seguro de eliminar el id ${e.target.dataset.id}?`);
+        console.log(e.target)
+        let isDelete = confirm(`¿estas seguro de eliminar el santo ${$template.querySelector(".name").textContent}?`);
         if (isDelete) {
             //delete-Delete
             try {
